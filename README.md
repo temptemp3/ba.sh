@@ -1,5 +1,7 @@
 # ba.sh
 
-bash test programs
+public bash scripts
 
 previosly test.sh
+
+see also <https://github.com/temptemp3/sh2>
