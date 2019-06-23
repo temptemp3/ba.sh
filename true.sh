@@ -10,7 +10,7 @@ declare -f true 1>/dev/null || {
 ##################################################
 if [ ${#} -eq 0 ] 
 then
- true
+ command true
 else
  exit 1 # wrong args
 fi
