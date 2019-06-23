@@ -1,6 +1,6 @@
 #!/bin/bash
 ## true
-## version 0.0.1 - initial
+## version 0.0.2 - using command true in entry
 ##################################################
 declare -f true 1>/dev/null || {
   true() {
