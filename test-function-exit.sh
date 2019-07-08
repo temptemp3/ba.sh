@@ -9,7 +9,7 @@ exit() {
 }
 test-function-exit() {
   echo noise
-  ( return 0 )
+  ( return 1 )
   echo silence
 }
 ##################################################
