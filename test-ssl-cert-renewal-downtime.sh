@@ -1,6 +1,6 @@
 #!/bin/bash
 ## test-ssl-cert-renewal-downtime
-## version 0.0.1 - initial
+## version 0.0.2 - continue on exit code 60 else break
 ##################################################
 test-ssl-cert-renewal-downtime() {
   date
@@ -8,7 +8,8 @@ test-ssl-cert-renewal-downtime() {
   do
     sleep 5
     echo -n "."
-    curl ${url} &>/dev/null && break
+    curl -v ${url} 1>/dev/null 
+    test ${?} -eq 60 || break
     # false
   done
   date
