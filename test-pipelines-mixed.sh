@@ -7,7 +7,8 @@ alias handle-nonstandard-pipepline-error='
 {
   case ${str} in
    error*) {
-     sleep 1
+     echo ${str} on line $(( RANDOM % LINENO )) >> ${temp}-error-log # handle error
+     payload
    } ;;
    *) {
      payload
@@ -17,8 +18,7 @@ alias handle-nonstandard-pipepline-error='
 '
 ## see also test-pipeline-nonstandard.sh
 banner() {
-  {
-    cat << EOF
+      cat << EOF
 205f20202020202020202020202020202020202020202020205f20202020
 2020202020202020202020202020202020205f5f5f5f5f200a7c207c5f20
 5f5f5f205f205f5f205f5f5f20205f205f5f207c207c5f205f5f5f205f20
@@ -31,21 +31,27 @@ banner() {
 5f5f2f200a2020202020202020202020202020202020207c5f7c20202020
 20202020202020202020202020202020207c5f7c2020202020202020200a
 EOF
-  } | xxd -ps -r
 }
-func() {
-  echo error 1>&2
+decode() {
+  xxd -ps -r
+}
+func() { read str
   payload() {
-    banner
+    banner | decode
   }
   handle-nonstandard-pipepline-error
-} 
+}
 test-pipelines-mixed() {
-  for row in $( seq $( banner | wc -l ) )
+  local temp
+  temp=$( mktemp )
+  banner > ${temp}-banner
+  for row in $( seq $( cat ${temp}-banner | wc -l ) )
   do
-   banner | sed -n "${row}p"
-   sleep 1
+   { echo error in ${FUNCNAME} 1>&2 ; } |& func | sed -n "${row}p" 
   done
+  echo =error-log=
+  cat ${temp}-error-log | head -n 3
+  echo ...
 }
 ##################################################
 if [ ${#} -eq 0 ] 
