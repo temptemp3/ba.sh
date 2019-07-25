@@ -1,6 +1,6 @@
 # ba.sh
 
-public bash scripts
+public bash scripts used around the web
 
 previosly test.sh
 
