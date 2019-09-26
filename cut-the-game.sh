@@ -117,7 +117,7 @@ cut-the-game() {
        egg_count+=1
        echo -n -e "\nYou now have ${egg_count} egg$( test ! ${egg_count} -gt 1 || echo -n s ).\n" 
        echo -e "\nIt appears that the rabbit left behind some tracks."
-       echo -e "\nDo you follow the rabbit deeper into the meadow to uncover more eggs? "
+       echo -n -e "\nDo you follow the rabbit deeper into the meadow to uncover more eggs? "
        read 
        case ${REPLY} in
         y|yes) break ;;
